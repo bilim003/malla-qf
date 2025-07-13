@@ -10,27 +10,29 @@ h1 {
   color: #b38184;
 }
 
-/* Contenedor principal: los años en fila */
+/* Contenedor general: los años van uno al lado del otro */
 #malla-container {
   display: flex;
-  flex-direction: row;      /* AÑOS EN HORIZONTAL */
+  flex-direction: row;      /* Años alineados horizontalmente */
   gap: 30px;
-  overflow-x: auto;         /* Para poder scrollear si no caben */
+  overflow-x: auto;         /* Scroll horizontal si no caben todos */
   padding-bottom: 20px;
 }
 
-/* Contenedor de cada año */
+/* Cada año como una columna vertical */
 .anio {
   display: flex;
-  flex-direction: column;   /* SEMESTRES EN VERTICAL */
+  flex-direction: column;   /* Semestres apilados en vertical */
+  min-width: 260px;
+  max-width: 300px;
+  flex-shrink: 0;
   border: 2px solid #d9b4b4;
   border-radius: 12px;
   padding: 15px;
   background-color: #fff0f3;
-  min-width: 300px;
-  flex-shrink: 0;
 }
 
+/* Título del año */
 .anio h2 {
   margin: 0 0 10px;
   color: #9e5f6f;
@@ -40,14 +42,14 @@ h1 {
   padding-bottom: 5px;
 }
 
-/* Ya no necesitamos semestres-row */
+/* Contenedor para los dos semestres */
 .semestres-row {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
-/* Cada semestre (uno debajo del otro) */
+/* Caja de cada semestre */
 .semestre {
   border: 1px solid #ddd;
   border-radius: 10px;
@@ -55,6 +57,7 @@ h1 {
   background-color: #fff9f9;
 }
 
+/* Título del semestre */
 .semestre h3 {
   text-align: left;
   color: #aa6c74;
@@ -62,7 +65,7 @@ h1 {
   font-size: 1.2em;
 }
 
-/* Los ramos se ordenan verticalmente */
+/* Contenedor vertical para los ramos */
 .grid {
   display: flex;
   flex-direction: column;
@@ -70,18 +73,19 @@ h1 {
   align-items: flex-start;
 }
 
-/* Cada ramo */
+/* Cuadro de cada ramo */
 .course {
   border: 2px solid #ccc;
   border-radius: 8px;
   padding: 10px;
   width: 100%;
-  max-width: 200px;
-  background-color: #ffeecf; /* amarillo pastel */
+  max-width: 200px;         /* <-- más angosto para evitar que estire la columna */
+  background-color: #ffeecf; /* Amarillo pastel */
   transition: background-color 0.3s ease;
   cursor: pointer;
   user-select: none;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+  text-align: left;
 }
 
 /* Ramos bloqueados */
@@ -94,7 +98,7 @@ h1 {
 
 /* Ramos aprobados */
 .course.approved {
-  background-color: #cde9f9; /* celeste pastel */
+  background-color: #cde9f9; /* Celeste pastel */
   border-color: #89c3d0;
   color: #333;
 }
