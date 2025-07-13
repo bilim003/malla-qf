@@ -58,7 +58,7 @@ h1 {
 
 .course.bloqueado {
   background-color: #e7c6ff;
-  color: #c8b6ff;
+  color: #9d4edd;
   opacity: 0.6;
   cursor: not-allowed;
 }
