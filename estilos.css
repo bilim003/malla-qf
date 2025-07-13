@@ -1,6 +1,6 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: #ffe5ec;
+  background-color: #fadde1;
   margin: 0;
   padding: 20px;
   box-sizing: border-box;
@@ -19,7 +19,7 @@ h1 {
 }
 
 .ano {
-  background-color: #fff1e6;
+  background-color: #ffc4d6;
   padding: 15px;
   border-radius: 10px;
   width: 200px;
@@ -32,17 +32,17 @@ h1 {
 .semestre h3 {
   text-align: center;
   margin-bottom: 10px;
-  color: #9d4edd;
+  color: #f26a8d;
 }
 
 .course {
-  background-color: #ffafcc;
+  background-color: #ffa6c1;
   padding: 10px;
   margin: 5px 0;
   border-radius: 8px;
   text-align: center;
   cursor: pointer;
-  color: #6a0572;
+  color: #e05780;
   transition: 0.2s;
 }
 
@@ -57,8 +57,8 @@ h1 {
 }
 
 .course.bloqueado {
-  background-color: #e7c6ff;
-  color: #9d4edd;
+  background-color: #c86fc9;
+  color: #8e518d;
   opacity: 0.6;
   cursor: not-allowed;
 }
