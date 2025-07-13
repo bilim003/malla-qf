@@ -1,4 +1,3 @@
-// Los requisitos (igual que antes)
 const requisitos = {
   "biologia-celular": [],
   "quimica-general-1": [],
@@ -55,31 +54,94 @@ const requisitos = {
   "practica-farmacia-comunitaria": ["integrador-1"],
 };
 
-// Estado aprobado (set)
+// Invertimos para saber quién depende de quién
+const desbloquea = {};
+for (const [ramo, reqs] of Object.entries(requisitos)) {
+  reqs.forEach(r => {
+    if (!desbloquea[r]) desbloquea[r] = [];
+    desbloquea[r].push(ramo);
+  });
+}
+
 const aprobado = new Set();
 
-// Inicializar: desbloquea todos (ya no bloqueamos)
+function puedeDesbloquear(id) {
+  const reqs = requisitos[id];
+  return reqs.every(r => aprobado.has(r));
+}
+
+function bloquearRamo(id) {
+  const el = document.getElementById(id);
+  if (el) {
+    el.classList.add('locked');
+    el.classList.remove('approved');
+  }
+  aprobado.delete(id);
+}
+
+function desbloquearRamo(id) {
+  const el = document.getElementById(id);
+  if (el) {
+    el.classList.remove('locked');
+  }
+}
+
+function aprobarRamo(id) {
+  aprobado.add(id);
+  const el = document.getElementById(id);
+  if (el) {
+    el.classList.add('approved');
+    el.classList.remove('locked');
+  }
+  // desbloquear dependientes si pueden
+  if (desbloquea[id]) {
+    desbloquea[id].forEach(hijo => {
+      if (puedeDesbloquear(hijo)) desbloquearRamo(hijo);
+    });
+  }
+}
+
+function desmarcarRamo(id) {
+  aprobado.delete(id);
+  const el = document.getElementById(id);
+  if (el) el.classList.remove('approved');
+  // Bloquear dependientes que ya no cumplen requisitos
+  if (desbloquea[id]) {
+    desbloquea[id].forEach(hijo => {
+      if (!puedeDesbloquear(hijo)) {
+        bloquearRamo(hijo);
+        desmarcarRamo(hijo); // recursivo
+      }
+    });
+  }
+}
+
+function toggleRamo(e) {
+  const el = e.currentTarget;
+  if (el.classList.contains('locked')) {
+    alert('Este ramo está bloqueado. Debes aprobar primero sus requisitos.');
+    return;
+  }
+  const id = el.id;
+  if (aprobado.has(id)) {
+    desmarcarRamo(id);
+  } else {
+    aprobarRamo(id);
+  }
+}
+
 function inicializar() {
   document.querySelectorAll('.course').forEach(el => {
-    el.classList.remove('locked', 'approved');
+    const id = el.id;
+    if (requisitos[id].length === 0) {
+      desbloquearRamo(id);
+    } else {
+      bloquearRamo(id);
+    }
   });
   aprobado.clear();
 }
 
-// Toggle sin bloquear otros ni comprobar requisitos
-function toggleRamo(event) {
-  const el = event.currentTarget;
-  const id = el.id;
-  if (aprobado.has(id)) {
-    aprobado.delete(id);
-    el.classList.remove('approved');
-  } else {
-    aprobado.add(id);
-    el.classList.add('approved');
-  }
-}
-
-// Setup
 function setup() {
   inicializar();
   document.querySelectorAll('.course').forEach(el => {
