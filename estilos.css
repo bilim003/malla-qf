@@ -1,3 +1,4 @@
+/* estilos.css */
 body {
   font-family: Arial, sans-serif;
   background-color: #fdf6f0;
@@ -10,87 +11,59 @@ h1 {
   color: #b38184;
 }
 
-/* Contenedor general: los años van en fila */
+/* Contenedor principal: los semestres en fila horizontal */
 #malla-container {
   display: flex;
-  flex-direction: row;      /* Años en horizontal */
-  gap: 30px;
-  overflow-x: auto;         /* Scroll horizontal si no caben */
+  flex-direction: row;  /* Semestres lado a lado */
+  gap: 25px;
+  overflow-x: auto;     /* Scroll horizontal si no caben */
   padding-bottom: 20px;
+  justify-content: center;
 }
 
-/* Cada año: columna con dos semestres */
-.anio {
-  display: flex;
-  flex-direction: column;
-  min-width: 360px;
-  max-width: 400px;
-  flex-shrink: 0;
+/* Cada semestre como columna */
+.semestre {
+  flex: 1 1 150px;
+  min-width: 150px;
+  max-width: 180px;
   border: 2px solid #d9b4b4;
   border-radius: 12px;
   padding: 15px;
   background-color: #fff0f3;
-}
-
-/* Título del año */
-.anio h2 {
-  margin: 0 0 10px;
-  color: #9e5f6f;
-  font-size: 1.5em;
-  text-align: center;
-  border-bottom: 1px solid #d9b4b4;
-  padding-bottom: 5px;
-}
-
-/* Semestres en fila (horizontal dentro del año) */
-.semestres-row {
   display: flex;
-  flex-direction: row;   /* SEMESTRES UNO AL LADO DEL OTRO */
-  gap: 10px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-/* Cada semestre (bloque con ramos en columna) */
-.semestre {
-  flex: 1 1 48%;
-  min-width: 140px;
-  max-width: 180px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  padding: 10px;
-  background-color: #fff9f9;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* Título semestre */
 .semestre h3 {
-  text-align: center;
-  color: #aa6c74;
-  margin-bottom: 8px;
-  font-size: 1.1em;
+  color: #9e5f6f;
+  font-size: 1.4em;
+  margin-bottom: 15px;
 }
 
 /* Lista de ramos en vertical */
 .grid {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
+  width: 100%;
   align-items: center;
 }
 
-/* Cada ramo (cuadro interactivo) */
+/* Cada ramo */
 .course {
   border: 2px solid #ccc;
   border-radius: 8px;
   padding: 10px;
   width: 100%;
   max-width: 160px;
-  background-color: #ffeecf; /* Amarillo pastel */
-  transition: background-color 0.3s ease;
+  background-color: #ffeecf; /* amarillo pastel */
   cursor: pointer;
   user-select: none;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
   text-align: center;
+  transition: background-color 0.3s ease;
 }
 
 /* Ramos bloqueados */
@@ -103,7 +76,7 @@ h1 {
 
 /* Ramos aprobados */
 .course.approved {
-  background-color: #cde9f9; /* Celeste pastel */
+  background-color: #cde9f9; /* celeste pastel */
   border-color: #89c3d0;
   color: #333;
 }
