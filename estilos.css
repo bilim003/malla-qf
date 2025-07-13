@@ -36,7 +36,7 @@ h1 {
 }
 
 .course {
-  background-color: #ffa6c1;
+  background-color: #ffc8dd;
   padding: 10px;
   margin: 5px 0;
   border-radius: 8px;
@@ -57,8 +57,8 @@ h1 {
 }
 
 .course.bloqueado {
-  background-color: #fff6cc;
-  color: #df9a57;
+  background-color: #caadff;
+  color: #af99ff;
   opacity: 0.6;
   cursor: not-allowed;
 }
