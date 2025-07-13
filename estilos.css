@@ -13,24 +13,53 @@ h1 {
 #malla-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 40px;
+  gap: 50px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.anio {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  border: 2px solid #d9b4b4;
+  border-radius: 12px;
+  padding: 15px 20px;
+  background-color: #fff0f3; /* rosa pastel claro */
+}
+
+.anio h2 {
+  margin: 0;
+  color: #9e5f6f;
+  font-size: 1.6em;
+  text-align: left;
+  font-weight: bold;
+  border-bottom: 1px solid #d9b4b4;
+  padding-bottom: 5px;
+}
+
+.semestres-row {
+  display: flex;
+  gap: 25px;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .semestre {
+  flex: 1 1 48%; /* dos columnas con separación */
   border: 1px solid #ddd;
   border-radius: 10px;
   padding: 15px;
   background-color: #fff9f9;
-  width: 90%;
-  max-width: 1200px;
   box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  min-width: 280px;
 }
 
-.semestre h2 {
+.semestre h3 {
   text-align: left;
   color: #aa6c74;
   margin-bottom: 10px;
+  font-size: 1.3em;
 }
 
 .grid {
