@@ -19,7 +19,7 @@ h1 {
 }
 
 .ano {
-  background-color: #ffc4d6;
+  background-color: #fff0f3;
   padding: 15px;
   border-radius: 10px;
   width: 200px;
@@ -57,8 +57,8 @@ h1 {
 }
 
 .course.bloqueado {
-  background-color: #c86fc9;
-  color: #8e518d;
+  background-color: #fff6cc;
+  color: #df9a57;
   opacity: 0.6;
   cursor: not-allowed;
 }
