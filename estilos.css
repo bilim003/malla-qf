@@ -45,8 +45,10 @@ h1 {
 /* Contenedor para los dos semestres */
 .semestres-row {
   display: flex;
-  flex-direction: column;
-  gap: 15px;
+  flex-direction:row;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 /* Caja de cada semestre */
