@@ -1,13 +1,13 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: #fdf6f0;
+  background-color: #fdf6f0; /* Fondo general pastel */
   color: #333;
   text-align: center;
   padding: 20px;
 }
 
 h1 {
-  color: #b38184;
+  color: #b38184; /* Título principal rosado */
 }
 
 #malla-container {
@@ -18,6 +18,7 @@ h1 {
   margin: 0 auto;
 }
 
+/* Contenedor de cada año */
 .anio {
   display: flex;
   flex-direction: column;
@@ -25,7 +26,7 @@ h1 {
   border: 2px solid #d9b4b4;
   border-radius: 12px;
   padding: 15px 20px;
-  background-color: #fff0f3; /* rosa pastel claro */
+  background-color: #fff0f3; /* rosa pastel */
 }
 
 .anio h2 {
@@ -38,23 +39,25 @@ h1 {
   padding-bottom: 5px;
 }
 
+/* Contenedor fila para los semestres */
 .semestres-row {
   display: flex;
-  flex-direction: row; /* <--- Asegura que estén uno al lado del otro */
+  flex-direction: row; /* Semestres uno al lado del otro */
   gap: 30px;
   justify-content: center;
   align-items: flex-start;
-  flex-wrap: wrap;
+  flex-wrap: wrap; /* Permite que se acomoden si no caben */
 }
 
+/* Caja de cada semestre */
 .semestre {
-  flex: 1 1 45%; /* Dos columnas dentro del año */
-  min-width: 300px;
+  flex: 1 1 45%;
+  min-width: 280px;
   border: 1px solid #ddd;
   border-radius: 10px;
   padding: 15px;
   background-color: #fff9f9;
-  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
 }
 
 .semestre h3 {
@@ -64,6 +67,7 @@ h1 {
   font-size: 1.3em;
 }
 
+/* Contenedor de ramos */
 .grid {
   display: flex;
   flex-wrap: wrap;
@@ -71,6 +75,7 @@ h1 {
   gap: 10px;
 }
 
+/* Cada ramo (cuadro) */
 .course {
   border: 2px solid #ccc;
   border-radius: 8px;
@@ -85,6 +90,7 @@ h1 {
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+/* Ramos bloqueados */
 .course.locked {
   background-color: #f3f3f3;
   border-color: #ddd;
@@ -92,6 +98,7 @@ h1 {
   cursor: not-allowed;
 }
 
+/* Ramos aprobados */
 .course.approved {
   background-color: #cde9f9; /* celeste pastel */
   border-color: #89c3d0;
