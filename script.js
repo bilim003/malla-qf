@@ -1,4 +1,3 @@
-// script.js
 const semestres = [
   { anio: 1, semestre: 1, cursos: ['Biologia celular', 'Quimica general 1', 'Elementos de algebra', 'Intro'] },
   { anio: 1, semestre: 2, cursos: ['Morfologia', 'Quim general 2', 'Fisica', 'Quimica organica 1'] },
@@ -49,7 +48,7 @@ const dependencies = {
   'administracion en salud': ['Etica farmaceutica', 'Gestion de recursos', 'Farmacia hospitalaria', 'Practica en farmacia comunitaria'],
   'integrador 1': ['Practica en farmacia comunitaria'],
   'farmacia clinica 2': ['Integrador 2', 'Farmacia hospitalaria', 'Practica en farmacia comunitaria'],
-  'gestion y control de calidad': ['Practica en farmacia comunitaria']
+  'gestion y control de calidad': ['Practica en farmacia comunitaria'],
 };
 
 const approvedCourses = new Set();
@@ -89,17 +88,49 @@ function updateCourses() {
 
 const container = document.getElementById('malla-container');
 
-semestres.forEach(({ anio, semestre, cursos }) => {
-  const semDiv = document.createElement('div');
-  semDiv.className = 'semestre';
-  const title = document.createElement('h2');
-  title.textContent = `${anio}º año - ${semestre}º semestre`;
-  const grid = document.createElement('div');
-  grid.className = 'grid';
-  cursos.forEach(curso => grid.appendChild(createCourseElement(curso)));
-  semDiv.appendChild(title);
-  semDiv.appendChild(grid);
-  container.appendChild(semDiv);
-});
+// Agrupamos semestres por año
+const semestresPorAnio = semestres.reduce((acc, sem) => {
+  if (!acc[sem.anio]) acc[sem.anio] = [];
+  acc[sem.anio].push(sem);
+  return acc;
+}, {});
+
+for (const anio in semestresPorAnio) {
+  // Crear contenedor del año
+  const anioDiv = document.createElement('div');
+  anioDiv.className = 'anio';
+  
+  // Título del año
+  const anioTitle = document.createElement('h2');
+  anioTitle.textContent = `${anio}º Año`;
+  anioDiv.appendChild(anioTitle);
+
+  // Contenedor fila semestres
+  const semestresRow = document.createElement('div');
+  semestresRow.className = 'semestres-row';
+
+  // Añadir cada semestre del año
+  semestresPorAnio[anio].forEach(({ semestre, cursos }) => {
+    const semDiv = document.createElement('div');
+    semDiv.className = 'semestre';
+
+    const semTitle = document.createElement('h3');
+    semTitle.textContent = `${semestre}º Semestre`;
+    semDiv.appendChild(semTitle);
+
+    const grid = document.createElement('div');
+    grid.className = 'grid';
+
+    cursos.forEach(curso => {
+      grid.appendChild(createCourseElement(curso));
+    });
+
+    semDiv.appendChild(grid);
+    semestresRow.appendChild(semDiv);
+  });
+
+  anioDiv.appendChild(semestresRow);
+  container.appendChild(anioDiv);
+}
 
 updateCourses();
