@@ -1,146 +1,162 @@
-const semestres = [
-  { anio: 1, semestre: 1, cursos: ['Biologia celular', 'Quimica general 1', 'Elementos de algebra', 'Intro'] },
-  { anio: 1, semestre: 2, cursos: ['Morfologia', 'Quim general 2', 'Fisica', 'Quimica organica 1'] },
-  { anio: 2, semestre: 1, cursos: ['Fisiologia', 'quimica organica 2', 'fisicoquimica', 'quimica analitica'] },
-  { anio: 2, semestre: 2, cursos: ['Fisiopatologia', 'Quimica analitica e instrumental', 'Bioquimica general', 'Farmacocinetica'] },
-  { anio: 3, semestre: 1, cursos: ['Salud publica 1', 'microbiologia', 'farmacologia humana 1', 'farmacoquimica 1'] },
-  { anio: 3, semestre: 2, cursos: ['Farmacologia humana 2', 'Bioologia molecular', 'Farmacoquimica 2', 'botanica', 'tecnologia farmaceutica 1'] },
-  { anio: 4, semestre: 1, cursos: ['Farmacovigilancia', 'bioquimica clinica', 'farmacologia humana 3', 'tecnologia farmaceutica 2'] },
-  { anio: 4, semestre: 2, cursos: ['Salud publica 2', 'toxicologia clinica', 'farmacia clinica', 'tecnologia cosmetica'] },
-  { anio: 5, semestre: 1, cursos: ['Farmacoeconomia', 'administracion en salud', 'integrador 1', 'farmacia clinica 2', 'gestion y control de calidad'] },
-  { anio: 5, semestre: 2, cursos: ['Gestion de recursos', 'Etica farmaceutica', 'Farmacia hospitalaria', 'Integrador 2', 'Practica en farmacia comunitaria'] },
-];
+// Define los requisitos y desbloqueos según tus datos:
+const requisitos = {
+  "biologia-celular": [],
+  "quimica-general-1": [],
+  "elementos-algebra": [],
+  "intro": [],
 
-const dependencies = {
-  'Biologia celular': ['Morfologia'],
-  'Quimica general 1': ['Quim general 2', 'Quimica organica 1'],
-  'Elementos de algebra': ['Fisica'],
-  'Morfologia': ['Fisiologia'],
-  'Quim general 2': ['Quimica analitica', 'fisicoquimica'],
-  'Fisica': ['fisicoquimica'],
-  'Quimica organica 1': ['quimica organica 2'],
-  'Fisiologia': ['Fisiopatologia', 'Bioquimica general'],
-  'quimica organica 2': ['Bioquimica general', 'farmacoquimica 1'],
-  'fisicoquimica': ['Farmacocinetica'],
-  'quimica analitica': ['Quimica analitica e instrumental'],
-  'Fisiopatologia': ['Salud publica 1', 'farmacologia humana 1', 'bioquimica clinica'],
-  'Quimica analitica e instrumental': ['farmacoquimica 1', 'integrador 1'],
-  'Bioquimica general': ['microbiologia'],
-  'Farmacocinetica': ['farmacologia humana 1', 'tecnologia farmaceutica 1'],
-  'Salud publica 1': ['Farmacovigilancia', 'Salud publica 2'],
-  'microbiologia': ['Bioologia molecular', 'tecnologia farmaceutica 2'],
-  'farmacologia humana 1': ['farmacologia humana 2', 'botanica'],
-  'farmacoquimica 1': ['Farmacoquimica 2', 'botanica'],
-  'Farmacologia humana 2': ['Farmacovigilancia', 'farmacologia humana 3'],
-  'Bioologia molecular': ['bioquimica clinica'],
-  'Farmacoquimica 2': ['toxicologia clinica'],
-  'botanica': ['farmacologia humana 3'],
-  'tecnologia farmaceutica 1': ['tecnologia farmaceutica 2'],
-  'Farmacovigilancia': ['Salud publica 2', 'farmacia clinica'],
-  'bioquimica clinica': ['toxicologia clinica'],
-  'farmacologia humana 3': ['farmacia clinica'],
-  'tecnologia farmaceutica 2': ['tecnologia cosmetica'],
-  'Salud publica 2': ['Farmacoeconomia', 'administracion en salud'],
-  'toxicologia clinica': ['integrador 1'],
-  'farmacia clinica': ['farmacia clinica 2'],
-  'tecnologia cosmetica': ['integrador 1', 'gestion y control de calidad'],
-  'Farmacoeconomia': ['Gestion de recursos', 'Etica farmaceutica', 'Practica en farmacia comunitaria'],
-  'administracion en salud': ['Etica farmaceutica', 'Gestion de recursos', 'Farmacia hospitalaria', 'Practica en farmacia comunitaria'],
-  'integrador 1': ['Practica en farmacia comunitaria'],
-  'farmacia clinica 2': ['Integrador 2', 'Farmacia hospitalaria', 'Practica en farmacia comunitaria'],
-  'gestion y control de calidad': ['Practica en farmacia comunitaria'],
+  "morfologia": ["biologia-celular"],
+  "quim-general-2": ["quimica-general-1"],
+  "fisica": ["elementos-algebra"],
+  "quim-organica-1": ["quimica-general-1"],
+
+  "fisiologia": ["morfologia"],
+  "quim-organica-2": ["quim-organica-1", "quim-general-2"],
+  "fisicoquimica": ["quim-general-2", "fisica"],
+  "quimica-analitica": ["quim-general-2"],
+
+  "fisiopatologia": ["fisiologia"],
+  "quimica-analitica-instrumental": ["quimica-analitica"],
+  "bioquimica-general": ["fisiologia", "quim-organica-2"],
+  "farmacocinetica": ["fisicoquimica"],
+
+  "salud-publica-1": ["fisiopatologia"],
+  "microbiologia": ["bioquimica-general"],
+  "farmacologia-humana-1": ["fisiopatologia", "farmacocinetica"], // corequisito: farmacoquimica-1
+  "farmacoquimica-1": ["quim-organica-2", "quimica-analitica-instrumental"],
+
+  "farmacologia-humana-2": ["farmacologia-humana-1", "farmacoquimica-2"], // corequisito farmacoquim 2
+  "biologia-molecular": ["microbiologia"],
+  "farmacoquimica-2": ["farmacoquimica-1"],
+  "botanica": ["farmacologia-humana-1", "farmacoquimica-1"],
+  "tecnologia-farmaceutica-1": ["farmacocinetica"],
+
+  "farmacovigilancia": ["salud-publica-1", "farmacologia-humana-2"],
+  "bioquimica-clinica": ["bioquimica-general"],
+  "farmacologia-humana-3": ["farmacologia-humana-2", "botanica"],
+  "tecnologia-farmaceutica-2": ["tecnologia-farmaceutica-1"],
+
+  "salud-publica-2": ["farmacovigilancia"],
+  "toxicologia-clinica": ["farmacologia-humana-3", "bioquimica-clinica"],
+  "farmacia-clinica": ["farmacovigilancia", "farmacologia-humana-3"],
+  "tecnologia-cosmetica": ["tecnologia-farmaceutica-2"],
+
+  "gestion-control-calidad": ["tecnologia-cosmetica"],
+
+  "farmacoeconomia": ["salud-publica-2"],
+  "administracion-salud": ["salud-publica-2"],
+  "integrador-1": ["quimica-analitica-instrumental", "toxicologia-clinica", "farmacia-clinica-2"],
+  "farmacia-clinica-2": ["farmacia-clinica"],
+  
+  "gestion-recursos": ["farmacoeconomia", "administracion-salud"],
+  "etica-farmaceutica": ["farmacoeconomia", "administracion-salud"],
+  "farmacia-hospitalaria": ["administracion-salud"],
+  "integrador-2": ["integrador-1"],
+  "practica-farmacia-comunitaria": ["integrador-1"],
 };
 
-const approvedCourses = new Set();
-
-function createCourseElement(name) {
-  const div = document.createElement('div');
-  div.classList.add('course', 'locked');
-  div.textContent = name;
-  div.dataset.name = name;
-  div.addEventListener('click', () => toggleCourse(name, div));
-  return div;
+// Invertir requisitos para saber qué desbloquea cada ramo
+const desbloquea = {};
+for (const [ramo, reqs] of Object.entries(requisitos)) {
+  reqs.forEach(r => {
+    if (!desbloquea[r]) desbloquea[r] = [];
+    desbloquea[r].push(ramo);
+  });
 }
 
-function toggleCourse(name, element) {
-  if (element.classList.contains('locked')) return;
-  if (approvedCourses.has(name)) {
-    approvedCourses.delete(name);
-    element.classList.remove('approved');
-  } else {
-    approvedCourses.add(name);
-    element.classList.add('approved');
-  }
-  updateCourses();
-}
+// Estado de aprobación de cada ramo
+const aprobado = new Set();
 
-function updateCourses() {
+// Inicialización: bloquear todos que tengan requisitos no cumplidos
+function inicializar() {
   document.querySelectorAll('.course').forEach(el => {
-    const name = el.dataset.name;
-    // Un curso está desbloqueado si todos sus prerequisitos están aprobados
-    const prereqs = Object.entries(dependencies)
-      .filter(([, unlocks]) => unlocks.includes(name))
-      .map(([prereq]) => prereq);
-
-    const isUnlocked = prereqs.every(prereq => approvedCourses.has(prereq));
-    // Si no tiene prerequisitos, está desbloqueado
-    if (prereqs.length === 0) {
-      el.classList.remove('locked');
-    } else if (isUnlocked) {
-      el.classList.remove('locked');
+    const id = el.id;
+    if (!requisitos[id] || requisitos[id].length === 0) {
+      desbloquearRamo(id);
     } else {
-      el.classList.add('locked');
-      el.classList.remove('approved'); // Si está bloqueado, no puede estar aprobado
-      approvedCourses.delete(name);
+      bloquearRamo(id);
     }
+    el.classList.remove('approved');
   });
+  aprobado.clear();
 }
 
-const container = document.getElementById('malla-container');
+// Función para bloquear ramo
+function bloquearRamo(id) {
+  const el = document.getElementById(id);
+  if (el) {
+    el.classList.add('locked');
+    el.classList.remove('approved');
+  }
+}
 
-// Agrupamos semestres por año
-const semestresPorAnio = semestres.reduce((acc, sem) => {
-  if (!acc[sem.anio]) acc[sem.anio] = [];
-  acc[sem.anio].push(sem);
-  return acc;
-}, {});
+// Función para desbloquear ramo
+function desbloquearRamo(id) {
+  const el = document.getElementById(id);
+  if (el) {
+    el.classList.remove('locked');
+  }
+}
 
-for (const anio in semestresPorAnio) {
-  // Crear contenedor del año
-  const anioDiv = document.createElement('div');
-  anioDiv.className = 'anio';
-  
-  // Título del año
-  const anioTitle = document.createElement('h2');
-  anioTitle.textContent = `${anio}º Año`;
-  anioDiv.appendChild(anioTitle);
-
-  // Contenedor fila semestres
-  const semestresRow = document.createElement('div');
-  semestresRow.className = 'semestres-row';
-
-  // Añadir cada semestre del año
-  semestresPorAnio[anio].forEach(({ semestre, cursos }) => {
-    const semDiv = document.createElement('div');
-    semDiv.className = 'semestre';
-
-    const semTitle = document.createElement('h3');
-    semTitle.textContent = `${semestre}º Semestre`;
-    semDiv.appendChild(semTitle);
-
-    const grid = document.createElement('div');
-    grid.className = 'grid';
-
-    cursos.forEach(curso => {
-      grid.appendChild(createCourseElement(curso));
+// Al aprobar ramo: marcar, desbloquear dependientes
+function aprobarRamo(id) {
+  aprobado.add(id);
+  const el = document.getElementById(id);
+  if (el) {
+    el.classList.add('approved');
+  }
+  // Desbloquear los que dependen de este ramo
+  if (desbloquea[id]) {
+    desbloquea[id].forEach(hijo => {
+      // Si todos los requisitos del hijo están aprobados, desbloquearlo
+      if (requisitos[hijo].every(r => aprobado.has(r))) {
+        desbloquearRamo(hijo);
+      }
     });
-
-    semDiv.appendChild(grid);
-    semestresRow.appendChild(semDiv);
-  });
-
-  anioDiv.appendChild(semestresRow);
-  container.appendChild(anioDiv);
+  }
 }
 
-updateCourses();
+// Al desmarcar ramo: quitar aprobado, bloquear dependientes recursivamente
+function desmarcarRamo(id) {
+  aprobado.delete(id);
+  bloquearRamo(id);
+  const el = document.getElementById(id);
+  if (el) {
+    el.classList.remove('approved');
+  }
+  // Recursivamente bloquear los que dependen de este ramo
+  if (desbloquea[id]) {
+    desbloquea[id].forEach(hijo => {
+      if (aprobado.has(hijo)) {
+        desmarcarRamo(hijo);
+      } else {
+        bloquearRamo(hijo);
+      }
+    });
+  }
+}
+
+// Al hacer click en ramo
+function toggleRamo(event) {
+  const el = event.currentTarget;
+  if (el.classList.contains('locked')) {
+    alert('Este ramo está bloqueado. Debes aprobar primero sus requisitos.');
+    return;
+  }
+  const id = el.id;
+  if (aprobado.has(id)) {
+    desmarcarRamo(id);
+  } else {
+    aprobarRamo(id);
+  }
+}
+
+// Setup: agrega listeners y inicializa estado
+function setup() {
+  inicializar();
+  document.querySelectorAll('.course').forEach(el => {
+    el.addEventListener('click', toggleRamo);
+  });
+}
+
+window.onload = setup;
