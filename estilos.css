@@ -10,21 +10,21 @@ h1 {
   color: #b38184;
 }
 
-/* Contenedor general: los años van uno al lado del otro */
+/* Contenedor general: los años van en fila */
 #malla-container {
   display: flex;
-  flex-direction: row;      /* Años alineados horizontalmente */
+  flex-direction: row;      /* Años en horizontal */
   gap: 30px;
-  overflow-x: auto;         /* Scroll horizontal si no caben todos */
+  overflow-x: auto;         /* Scroll horizontal si no caben */
   padding-bottom: 20px;
 }
 
-/* Cada año como una columna vertical */
+/* Cada año: columna con dos semestres */
 .anio {
   display: flex;
-  flex-direction: column;   /* Semestres apilados en vertical */
-  min-width: 260px;
-  max-width: 300px;
+  flex-direction: column;
+  min-width: 360px;
+  max-width: 400px;
   flex-shrink: 0;
   border: 2px solid #d9b4b4;
   border-radius: 12px;
@@ -42,52 +42,55 @@ h1 {
   padding-bottom: 5px;
 }
 
-/* Contenedor para los dos semestres */
+/* Semestres en fila (horizontal dentro del año) */
 .semestres-row {
   display: flex;
-  flex-direction:row;
+  flex-direction: row;   /* SEMESTRES UNO AL LADO DEL OTRO */
   gap: 10px;
   justify-content: center;
   flex-wrap: wrap;
 }
 
-/* Caja de cada semestre */
+/* Cada semestre (bloque con ramos en columna) */
 .semestre {
+  flex: 1 1 48%;
+  min-width: 140px;
+  max-width: 180px;
   border: 1px solid #ddd;
   border-radius: 10px;
   padding: 10px;
   background-color: #fff9f9;
 }
 
-/* Título del semestre */
+/* Título semestre */
 .semestre h3 {
-  text-align: left;
+  text-align: center;
   color: #aa6c74;
   margin-bottom: 8px;
-  font-size: 1.2em;
+  font-size: 1.1em;
 }
 
-/* Contenedor vertical para los ramos */
+/* Lista de ramos en vertical */
 .grid {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  align-items: flex-start;
+  align-items: center;
 }
 
-/* Cuadro de cada ramo */
+/* Cada ramo (cuadro interactivo) */
 .course {
   border: 2px solid #ccc;
   border-radius: 8px;
   padding: 10px;
   width: 100%;
-  max-width: 200px;         /* <-- más angosto para evitar que estire la columna */
+  max-width: 160px;
   background-color: #ffeecf; /* Amarillo pastel */
   transition: background-color 0.3s ease;
   cursor: pointer;
   user-select: none;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
-  text-align: left;
+  text-align: center;
 }
 
 /* Ramos bloqueados */
