@@ -1,7 +1,7 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: #ffe5ec; /* fondo pastel rosa */
-  color: #5a3e66; /* texto oscuro pastel */
+  background-color: #ffc8dd; /* fondo pastel rosa */
+  color: #5a3e66; /* texto lila oscuro */
   text-align: center;
   padding: 20px;
   margin: 0;
@@ -14,17 +14,17 @@ h1 {
   font-weight: bold;
 }
 
-/* Contenedor principal: los semestres en fila horizontal */
+/* Contenedor principal: semestres en fila horizontal */
 #malla-container {
   display: flex;
-  flex-direction: row;  /* Semestres lado a lado */
+  flex-direction: row;
   gap: 25px;
-  overflow-x: auto;     /* Scroll horizontal si no caben */
+  overflow-x: auto;
   padding-bottom: 20px;
   justify-content: center;
 }
 
-/* Cada semestre como columna */
+/* Cada semestre es columna */
 .semestre {
   flex: 1 1 150px;
   min-width: 150px;
@@ -38,14 +38,12 @@ h1 {
   align-items: center;
 }
 
-/* Título semestre */
 .semestre h3 {
   color: #6f3e64;
   font-size: 1.4em;
   margin-bottom: 15px;
 }
 
-/* Lista de ramos en vertical */
 .grid {
   display: flex;
   flex-direction: column;
@@ -54,14 +52,14 @@ h1 {
   align-items: center;
 }
 
-/* Cada ramo */
+/* Ramos no aprobados */
 .course {
   border-radius: 8px;
   padding: 10px;
   width: 100%;
   max-width: 160px;
-  background-color: #ffafcc; /* color ramo no aprobado */
-  color: #6f3e64; /* texto acorde */
+  background-color: #ffafcc; /* rosa pastel */
+  color: #6f3e64;
   cursor: pointer;
   user-select: none;
   box-shadow: 2px 2px 5px rgba(111, 62, 100, 0.15);
