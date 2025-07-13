@@ -40,8 +40,10 @@ h1 {
 
 .semestres-row {
   display: flex;
-  gap: 25px;
-  justify-content: space-between;
+  flex-direction: row; /* <--- Asegura que estén uno al lado del otro */
+  gap: 30px;
+  justify-content: center;
+  align-items: flex-start;
   flex-wrap: wrap;
 }
 
