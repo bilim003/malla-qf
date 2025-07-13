@@ -1,14 +1,17 @@
-/* estilos.css */
 body {
   font-family: Arial, sans-serif;
-  background-color: #fdf6f0;
-  color: #333;
+  background-color: #ffc8dd; /* fondo pastel rosa */
+  color: #5a3e66; /* texto oscuro pastel */
   text-align: center;
   padding: 20px;
+  margin: 0;
 }
 
 h1 {
-  color: #b38184;
+  color: #6f3e64;
+  margin-bottom: 30px;
+  font-size: 2.4em;
+  font-weight: bold;
 }
 
 /* Contenedor principal: los semestres en fila horizontal */
@@ -26,10 +29,10 @@ h1 {
   flex: 1 1 150px;
   min-width: 150px;
   max-width: 180px;
-  border: 2px solid #d9b4b4;
+  border: 2px solid #9a739d; /* borde lila pastel */
   border-radius: 12px;
   padding: 15px;
-  background-color: #fff0f3;
+  background-color: #ffd6e8; /* rosa pastel suave */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -37,7 +40,7 @@ h1 {
 
 /* Título semestre */
 .semestre h3 {
-  color: #9e5f6f;
+  color: #6f3e64;
   font-size: 1.4em;
   margin-bottom: 15px;
 }
@@ -53,30 +56,34 @@ h1 {
 
 /* Cada ramo */
 .course {
-  border: 2px solid #ccc;
   border-radius: 8px;
   padding: 10px;
   width: 100%;
   max-width: 160px;
-  background-color: #ffeecf; /* amarillo pastel */
+  background-color: #ffafcc; /* color ramo no aprobado */
+  color: #6f3e64; /* texto acorde */
   cursor: pointer;
   user-select: none;
-  box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+  box-shadow: 2px 2px 5px rgba(111, 62, 100, 0.15);
   text-align: center;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease, text-decoration 0.3s ease;
+  border: 2px solid transparent;
 }
 
 /* Ramos bloqueados */
 .course.locked {
-  background-color: #f3f3f3;
-  border-color: #ddd;
-  color: #aaa;
+  background-color: #bde0fe; /* azul pastel */
+  color: #3b5998;
   cursor: not-allowed;
+  box-shadow: none;
+  border-color: #7aaef7;
 }
 
 /* Ramos aprobados */
 .course.approved {
-  background-color: #cde9f9; /* celeste pastel */
-  border-color: #89c3d0;
-  color: #333;
+  background-color: #cdb4db; /* lila pastel */
+  color: #4b3366;
+  text-decoration: line-through;
+  border-color: #a88fcc;
+  box-shadow: 2px 2px 5px rgba(75, 51, 102, 0.3);
 }
