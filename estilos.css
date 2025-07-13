@@ -51,14 +51,14 @@ h1 {
 }
 
 .course.aprobado {
-  background-color: #cdb4db;
-  color: #4b3b61;
+  background-color: #bde0fe;
+  color: #4895ef;
   text-decoration: line-through;
 }
 
 .course.bloqueado {
-  background-color: #bde0fe;
-  color: #5e6472;
+  background-color: #e7c6ff;
+  color: #c8b6ff;
   opacity: 0.6;
   cursor: not-allowed;
 }
