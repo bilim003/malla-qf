@@ -1,129 +1,64 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: #ffe5ec; /* fondo rosa pastel claro */
-  color: #5a3e66;
-  text-align: center;
-  padding: 20px;
+  background-color: #ffe5ec;
   margin: 0;
-}
-
-h1 {
-  color: #6f3e64;
-  margin-bottom: 30px;
-  font-size: 2.4em;
-  font-weight: bold;
-}
-
-/* Contenedor principal con wrap para no tener scroll horizontal */
-#malla-container {
-  display: flex;
-  flex-wrap: wrap;       /* Permite que los años bajen si no caben */
-  gap: 30px;
-  justify-content: center;
-  max-width: 100vw;      /* No excede ancho pantalla */
-  overflow-x: visible;   /* Sin scroll horizontal */
-  padding: 10px;
+  padding: 20px;
   box-sizing: border-box;
 }
 
-/* Cada fila: usamos flex wrap para que no haya scroll */
-.fila {
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 20px;
-  justify-content: center;
-  width: 100%;
-  max-width: 1200px;
-  overflow: visible;     /* Sin scroll */
+h1 {
+  text-align: center;
+  color: #c9184a;
 }
 
-/* Cada año: columna con fondo pastel */
+#malla-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
 .ano {
-  background-color: #fff1e6; /* fondo años pastel durazno */
-  border-radius: 12px;
+  background-color: #fff1e6;
   padding: 15px;
-  box-shadow: 0 3px 8px rgba(111, 62, 100, 0.1);
-  min-width: 230px;
-  max-width: 260px;
+  border-radius: 10px;
+  width: 200px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  color: #6f3e64;
-  user-select: none;
-  flex-shrink: 0;
-  cursor: default;
-}
-
-.ano h2 {
-  margin-bottom: 15px;
-  font-size: 1.6em;
-  font-weight: 700;
-}
-
-/* Cada semestre dentro del año */
-.semestre {
-  margin-bottom: 15px;
-  width: 100%;
+  gap: 20px;
 }
 
 .semestre h3 {
-  margin-bottom: 12px;
-  font-size: 1.2em;
-  font-weight: 600;
-}
-
-/* Grid vertical de cursos */
-.grid {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  align-items: center;
-}
-
-/* Ramos no aprobados */
-.course {
-  border-radius: 8px;
-  padding: 10px;
-  width: 90%;
-  background-color: #ffafcc; /* rosa pastel */
-  color: #6f3e64;
-  cursor: pointer;
-  user-select: none;
-  box-shadow: 2px 2px 5px rgba(111, 62, 100, 0.15);
   text-align: center;
-  transition: background-color 0.3s ease, color 0.3s ease, text-decoration 0.3s ease;
-  border: 2px solid transparent;
+  margin-bottom: 10px;
+  color: #9d4edd;
 }
 
-/* Ramos bloqueados */
-.course.locked {
-  background-color: #bde0fe; /* azul pastel */
-  color: #3b5998;
-  cursor: not-allowed;
-  box-shadow: none;
-  border-color: #7aaef7;
+.course {
+  background-color: #ffafcc;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 8px;
+  text-align: center;
+  cursor: pointer;
+  color: #6a0572;
+  transition: 0.2s;
 }
 
-/* Ramos aprobados */
-.course.approved {
-  background-color: #cdb4db; /* lila pastel */
-  color: #4b3366;
+.course:hover {
+  transform: scale(1.03);
+}
+
+.course.aprobado {
+  background-color: #cdb4db;
+  color: #4b3b61;
   text-decoration: line-through;
-  border-color: #a88fcc;
-  box-shadow: 2px 2px 5px rgba(75, 51, 102, 0.3);
 }
 
-/* Asegura que todo se vea bien en móviles */
-@media (max-width: 1000px) {
-  #malla-container {
-    flex-wrap: wrap;
-  }
-  .fila {
-    flex-wrap: wrap;
-  }
-  .ano {
-    min-width: 90%;
-    max-width: 90%;
-    margin: 0 auto;
-  }
+.course.bloqueado {
+  background-color: #bde0fe;
+  color: #5e6472;
+  opacity: 0.6;
+  cursor: not-allowed;
 }
