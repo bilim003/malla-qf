@@ -10,19 +10,41 @@ h1 {
   color: #b38184;
 }
 
-#grid {
+#malla-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+.semestre {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 15px;
+  background-color: #fff9f9;
+  width: 90%;
+  max-width: 1200px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+.semestre h2 {
+  text-align: left;
+  color: #aa6c74;
+  margin-bottom: 10px;
+}
+
+.grid {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  max-width: 1200px;
-  margin: 0 auto;
+  justify-content: flex-start;
+  gap: 10px;
 }
 
 .course {
   border: 2px solid #ccc;
   border-radius: 8px;
   padding: 10px;
-  margin: 8px;
+  margin: 4px;
   width: 180px;
   min-height: 80px;
   background-color: #ffeecf; /* amarillo pastel */
@@ -43,13 +65,4 @@ h1 {
   background-color: #cde9f9; /* celeste pastel */
   border-color: #89c3d0;
   color: #333;
-}
-
-.year-label {
-  font-weight: bold;
-  width: 100%;
-  text-align: left;
-  margin: 20px 0 10px;
-  color: #6c4a4a;
-  font-size: 1.2em;
 }
