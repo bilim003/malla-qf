@@ -48,13 +48,13 @@ h1 {
 }
 
 .semestre {
-  flex: 1 1 48%; /* dos columnas con separación */
+  flex: 1 1 45%; /* Dos columnas dentro del año */
+  min-width: 300px;
   border: 1px solid #ddd;
   border-radius: 10px;
   padding: 15px;
   background-color: #fff9f9;
   box-shadow: 0 0 10px rgba(0,0,0,0.05);
-  min-width: 280px;
 }
 
 .semestre h3 {
