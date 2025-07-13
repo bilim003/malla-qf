@@ -1,37 +1,50 @@
 // script.js
+const semestres = [
+  { anio: 1, semestre: 1, cursos: ['Biologia celular', 'Quimica general 1', 'Elementos de algebra', 'Intro'] },
+  { anio: 1, semestre: 2, cursos: ['Morfologia', 'Quim general 2', 'Fisica', 'Quimica organica 1'] },
+  { anio: 2, semestre: 1, cursos: ['Fisiologia', 'quimica organica 2', 'fisicoquimica', 'quimica analitica'] },
+  { anio: 2, semestre: 2, cursos: ['Fisiopatologia', 'Quimica analitica e instrumental', 'Bioquimica general', 'Farmacocinetica'] },
+  { anio: 3, semestre: 1, cursos: ['Salud publica 1', 'microbiologia', 'farmacologia humana 1', 'farmacoquimica 1'] },
+  { anio: 3, semestre: 2, cursos: ['Farmacologia humana 2', 'Bioologia molecular', 'Farmacoquimica 2', 'botanica', 'tecnologia farmaceutica 1'] },
+  { anio: 4, semestre: 1, cursos: ['Farmacovigilancia', 'bioquimica clinica', 'farmacologia humana 3', 'tecnologia farmaceutica 2'] },
+  { anio: 4, semestre: 2, cursos: ['Salud publica 2', 'toxicologia clinica', 'farmacia clinica', 'tecnologia cosmetica'] },
+  { anio: 5, semestre: 1, cursos: ['Farmacoeconomia', 'administracion en salud', 'integrador 1', 'farmacia clinica 2', 'gestion y control de calidad'] },
+  { anio: 5, semestre: 2, cursos: ['Gestion de recursos', 'Etica farmaceutica', 'Farmacia hospitalaria', 'Integrador 2', 'Practica en farmacia comunitaria'] },
+];
+
 const dependencies = {
   'Biologia celular': ['Morfologia'],
-  'Quimica general 1': ['Quim general 2', 'Quim organica 1'],
+  'Quimica general 1': ['Quim general 2', 'Quimica organica 1'],
   'Elementos de algebra': ['Fisica'],
   'Morfologia': ['Fisiologia'],
-  'Quim general 2': ['Quim analitica', 'Fisicoquimica'],
-  'Fisica': ['Fisicoquimica'],
-  'Quimica organica 1': ['Quim organica 2'],
+  'Quim general 2': ['Quimica analitica', 'fisicoquimica'],
+  'Fisica': ['fisicoquimica'],
+  'Quimica organica 1': ['quimica organica 2'],
   'Fisiologia': ['Fisiopatologia', 'Bioquimica general'],
-  'quimica organica 2': ['Bioquimica general', 'Farmacoquimica 1'],
+  'quimica organica 2': ['Bioquimica general', 'farmacoquimica 1'],
   'fisicoquimica': ['Farmacocinetica'],
-  'quimica analitica': ['Quimica analitica instrumental'],
-  'Fisiopatologia': ['Salud publica 1', 'Farmacologia humana 1', 'Bioquimica clinica'],
-  'Quimica analitica e instrumental': ['Farmacoquimica 1', 'Integrador 1'],
-  'Bioquimica general': ['Microbiologia'],
-  'Farmacocinetica': ['Farmacologia humana 1', 'Tecnologia farmaceutica'],
+  'quimica analitica': ['Quimica analitica e instrumental'],
+  'Fisiopatologia': ['Salud publica 1', 'farmacologia humana 1', 'bioquimica clinica'],
+  'Quimica analitica e instrumental': ['farmacoquimica 1', 'integrador 1'],
+  'Bioquimica general': ['microbiologia'],
+  'Farmacocinetica': ['farmacologia humana 1', 'tecnologia farmaceutica 1'],
   'Salud publica 1': ['Farmacovigilancia', 'Salud publica 2'],
-  'microbiologia': ['Biologia molecular', 'Tecnologia farmaceutica 2'],
-  'farmacologia humana 1': ['Farmacologia humana 2', 'Botanica'],
-  'farmacoquimica 1': ['Farmacoquimica 2', 'Botanica'],
-  'Farmacologia humana 2': ['Farmacovigilancia', 'Farmacologia humana 3'],
-  'Bioologia molecular': ['Bioquimica clinica'],
-  'Farmacoquimica 2': ['Toxicologia clinica'],
-  'botanica': ['Farmacologia humana 3'],
-  'tecnologia farmaceutica 1': ['Tecnologia farmaceutica 2'],
-  'Farmacovigilancia': ['Salud publica 2', 'Farmacia clinica'],
-  'bioquimica clinica': ['Toxicologia clinica'],
-  'farmacologia humana 3': ['Farmacia clinica'],
-  'tecnologia farmaceutica 2': ['Tecnologia cosmetica'],
-  'Salud publica 2': ['Farmacoeconomia', 'Administracion en salud'],
-  'toxicologia clinica': ['Integrador 1'],
-  'farmacia clinica': ['Farmacia clinica 2'],
-  'tecnologia cosmetica': ['Integrador 1', 'Gestion y control de calidad'],
+  'microbiologia': ['Bioologia molecular', 'tecnologia farmaceutica 2'],
+  'farmacologia humana 1': ['farmacologia humana 2', 'botanica'],
+  'farmacoquimica 1': ['Farmacoquimica 2', 'botanica'],
+  'Farmacologia humana 2': ['Farmacovigilancia', 'farmacologia humana 3'],
+  'Bioologia molecular': ['bioquimica clinica'],
+  'Farmacoquimica 2': ['toxicologia clinica'],
+  'botanica': ['farmacologia humana 3'],
+  'tecnologia farmaceutica 1': ['tecnologia farmaceutica 2'],
+  'Farmacovigilancia': ['Salud publica 2', 'farmacia clinica'],
+  'bioquimica clinica': ['toxicologia clinica'],
+  'farmacologia humana 3': ['farmacia clinica'],
+  'tecnologia farmaceutica 2': ['tecnologia cosmetica'],
+  'Salud publica 2': ['Farmacoeconomia', 'administracion en salud'],
+  'toxicologia clinica': ['integrador 1'],
+  'farmacia clinica': ['farmacia clinica 2'],
+  'tecnologia cosmetica': ['integrador 1', 'gestion y control de calidad'],
   'Farmacoeconomia': ['Gestion de recursos', 'Etica farmaceutica', 'Practica en farmacia comunitaria'],
   'administracion en salud': ['Etica farmaceutica', 'Gestion de recursos', 'Farmacia hospitalaria', 'Practica en farmacia comunitaria'],
   'integrador 1': ['Practica en farmacia comunitaria'],
@@ -39,14 +52,7 @@ const dependencies = {
   'gestion y control de calidad': ['Practica en farmacia comunitaria']
 };
 
-const courses = Object.keys(dependencies).reduce((all, key) => {
-  all.add(key);
-  dependencies[key].forEach(d => all.add(d));
-  return all;
-}, new Set());
-
 const approvedCourses = new Set();
-const grid = document.getElementById('grid');
 
 function createCourseElement(name) {
   const div = document.createElement('div');
@@ -72,21 +78,28 @@ function toggleCourse(name, element) {
 function updateCourses() {
   document.querySelectorAll('.course').forEach(el => {
     const name = el.dataset.name;
-    if (!dependencies[name]) {
-      el.classList.remove('locked');
-      return;
-    }
-    const prereqs = Object.entries(dependencies).filter(([key, values]) => values.includes(name));
-    const isUnlocked = prereqs.every(([prereq]) => approvedCourses.has(prereq));
+    const isUnlocked = Object.entries(dependencies).every(([from, toList]) => {
+      if (!toList.includes(name)) return true;
+      return approvedCourses.has(from);
+    });
     if (isUnlocked) el.classList.remove('locked');
     else el.classList.add('locked');
   });
 }
 
-[...courses].sort().forEach(name => {
-  const el = createCourseElement(name);
-  grid.appendChild(el);
+const container = document.getElementById('malla-container');
+
+semestres.forEach(({ anio, semestre, cursos }) => {
+  const semDiv = document.createElement('div');
+  semDiv.className = 'semestre';
+  const title = document.createElement('h2');
+  title.textContent = `${anio}º año - ${semestre}º semestre`;
+  const grid = document.createElement('div');
+  grid.className = 'grid';
+  cursos.forEach(curso => grid.appendChild(createCourseElement(curso)));
+  semDiv.appendChild(title);
+  semDiv.appendChild(grid);
+  container.appendChild(semDiv);
 });
 
 updateCourses();
-
