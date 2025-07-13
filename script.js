@@ -21,10 +21,10 @@ const requisitos = {
 
   "salud-publica-1": ["fisiopatologia"],
   "microbiologia": ["bioquimica-general"],
-  "farmacologia-humana-1": ["fisiopatologia", "farmacocinetica"], // corequisito: farmacoquimica-1
+  "farmacologia-humana-1": ["fisiopatologia", "farmacocinetica"],
   "farmacoquimica-1": ["quim-organica-2", "quimica-analitica-instrumental"],
 
-  "farmacologia-humana-2": ["farmacologia-humana-1", "farmacoquimica-2"], // corequisito farmacoquim 2
+  "farmacologia-humana-2": ["farmacologia-humana-1", "farmacoquimica-2"],
   "biologia-molecular": ["microbiologia"],
   "farmacoquimica-2": ["farmacoquimica-1"],
   "botanica": ["farmacologia-humana-1", "farmacoquimica-1"],
@@ -46,7 +46,7 @@ const requisitos = {
   "administracion-salud": ["salud-publica-2"],
   "integrador-1": ["quimica-analitica-instrumental", "toxicologia-clinica", "farmacia-clinica-2"],
   "farmacia-clinica-2": ["farmacia-clinica"],
-  
+
   "gestion-recursos": ["farmacoeconomia", "administracion-salud"],
   "etica-farmaceutica": ["farmacoeconomia", "administracion-salud"],
   "farmacia-hospitalaria": ["administracion-salud"],
@@ -54,7 +54,6 @@ const requisitos = {
   "practica-farmacia-comunitaria": ["integrador-1"],
 };
 
-// Invertimos para saber quién depende de quién
 const desbloquea = {};
 for (const [ramo, reqs] of Object.entries(requisitos)) {
   reqs.forEach(r => {
@@ -93,7 +92,6 @@ function aprobarRamo(id) {
     el.classList.add('approved');
     el.classList.remove('locked');
   }
-  // desbloquear dependientes si pueden
   if (desbloquea[id]) {
     desbloquea[id].forEach(hijo => {
       if (puedeDesbloquear(hijo)) desbloquearRamo(hijo);
@@ -105,12 +103,11 @@ function desmarcarRamo(id) {
   aprobado.delete(id);
   const el = document.getElementById(id);
   if (el) el.classList.remove('approved');
-  // Bloquear dependientes que ya no cumplen requisitos
   if (desbloquea[id]) {
     desbloquea[id].forEach(hijo => {
       if (!puedeDesbloquear(hijo)) {
         bloquearRamo(hijo);
-        desmarcarRamo(hijo); // recursivo
+        desmarcarRamo(hijo);
       }
     });
   }
