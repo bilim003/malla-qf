@@ -77,12 +77,22 @@ function toggleCourse(name, element) {
 function updateCourses() {
   document.querySelectorAll('.course').forEach(el => {
     const name = el.dataset.name;
-    const isUnlocked = Object.entries(dependencies).every(([from, toList]) => {
-      if (!toList.includes(name)) return true;
-      return approvedCourses.has(from);
-    });
-    if (isUnlocked) el.classList.remove('locked');
-    else el.classList.add('locked');
+    // Un curso está desbloqueado si todos sus prerequisitos están aprobados
+    const prereqs = Object.entries(dependencies)
+      .filter(([, unlocks]) => unlocks.includes(name))
+      .map(([prereq]) => prereq);
+
+    const isUnlocked = prereqs.every(prereq => approvedCourses.has(prereq));
+    // Si no tiene prerequisitos, está desbloqueado
+    if (prereqs.length === 0) {
+      el.classList.remove('locked');
+    } else if (isUnlocked) {
+      el.classList.remove('locked');
+    } else {
+      el.classList.add('locked');
+      el.classList.remove('approved'); // Si está bloqueado, no puede estar aprobado
+      approvedCourses.delete(name);
+    }
   });
 }
 
