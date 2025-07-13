@@ -1,4 +1,4 @@
-// Define los requisitos y desbloqueos según tus datos:
+// Los requisitos (igual que antes)
 const requisitos = {
   "biologia-celular": [],
   "quimica-general-1": [],
@@ -55,103 +55,31 @@ const requisitos = {
   "practica-farmacia-comunitaria": ["integrador-1"],
 };
 
-// Invertir requisitos para saber qué desbloquea cada ramo
-const desbloquea = {};
-for (const [ramo, reqs] of Object.entries(requisitos)) {
-  reqs.forEach(r => {
-    if (!desbloquea[r]) desbloquea[r] = [];
-    desbloquea[r].push(ramo);
-  });
-}
-
-// Estado de aprobación de cada ramo
+// Estado aprobado (set)
 const aprobado = new Set();
 
-// Inicialización: bloquear todos que tengan requisitos no cumplidos
+// Inicializar: desbloquea todos (ya no bloqueamos)
 function inicializar() {
   document.querySelectorAll('.course').forEach(el => {
-    const id = el.id;
-    if (!requisitos[id] || requisitos[id].length === 0) {
-      desbloquearRamo(id);
-    } else {
-      bloquearRamo(id);
-    }
-    el.classList.remove('approved');
+    el.classList.remove('locked', 'approved');
   });
   aprobado.clear();
 }
 
-// Función para bloquear ramo
-function bloquearRamo(id) {
-  const el = document.getElementById(id);
-  if (el) {
-    el.classList.add('locked');
-    el.classList.remove('approved');
-  }
-}
-
-// Función para desbloquear ramo
-function desbloquearRamo(id) {
-  const el = document.getElementById(id);
-  if (el) {
-    el.classList.remove('locked');
-  }
-}
-
-// Al aprobar ramo: marcar, desbloquear dependientes
-function aprobarRamo(id) {
-  aprobado.add(id);
-  const el = document.getElementById(id);
-  if (el) {
-    el.classList.add('approved');
-  }
-  // Desbloquear los que dependen de este ramo
-  if (desbloquea[id]) {
-    desbloquea[id].forEach(hijo => {
-      // Si todos los requisitos del hijo están aprobados, desbloquearlo
-      if (requisitos[hijo].every(r => aprobado.has(r))) {
-        desbloquearRamo(hijo);
-      }
-    });
-  }
-}
-
-// Al desmarcar ramo: quitar aprobado, bloquear dependientes recursivamente
-function desmarcarRamo(id) {
-  aprobado.delete(id);
-  bloquearRamo(id);
-  const el = document.getElementById(id);
-  if (el) {
-    el.classList.remove('approved');
-  }
-  // Recursivamente bloquear los que dependen de este ramo
-  if (desbloquea[id]) {
-    desbloquea[id].forEach(hijo => {
-      if (aprobado.has(hijo)) {
-        desmarcarRamo(hijo);
-      } else {
-        bloquearRamo(hijo);
-      }
-    });
-  }
-}
-
-// Al hacer click en ramo
+// Toggle sin bloquear otros ni comprobar requisitos
 function toggleRamo(event) {
   const el = event.currentTarget;
-  if (el.classList.contains('locked')) {
-    alert('Este ramo está bloqueado. Debes aprobar primero sus requisitos.');
-    return;
-  }
   const id = el.id;
   if (aprobado.has(id)) {
-    desmarcarRamo(id);
+    aprobado.delete(id);
+    el.classList.remove('approved');
   } else {
-    aprobarRamo(id);
+    aprobado.add(id);
+    el.classList.add('approved');
   }
 }
 
-// Setup: agrega listeners y inicializa estado
+// Setup
 function setup() {
   inicializar();
   document.querySelectorAll('.course').forEach(el => {
